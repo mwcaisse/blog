@@ -1,0 +1,5 @@
+# Ignore vuepress build
+.vuepress/dist
+
+# Ignore JetBrains configuration
+.idea
