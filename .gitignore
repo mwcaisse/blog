@@ -1,5 +1,5 @@
 # Ignore vuepress build
-.vuepress/dist
+**/.vuepress/dist
 
 # Ignore JetBrains configuration
 .idea
