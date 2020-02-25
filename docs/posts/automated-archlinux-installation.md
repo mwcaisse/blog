@@ -62,14 +62,69 @@ we could take advantage of our custom image or a git repo to do this.
 #### Pros
 * Don't need to have another computer to drive the installation
 * Can use familiar commands to drive the installation. One can look at the script and easily run the commands on their own.
+* Can host the script on the web, and all is needed is a simple command to download script.
 ### Cons
 * We need a way to get the script onto the fresh installation
+
+**TODO**: Pros and Cons conflict a little bit here don't they?
 
 In the end Bash Script approach is better, as it doesn't require having another computer to drive the installation. Ultimately
 we want to remove dependencies on user action, and having to drive the installation on another computer involves more interaction
 that running a script.
     
+    
+## Creating the Script
+
+What we need to do to install?
+
+* Partition Disks
+* Format the disks
+* TODO: Set up encryption?
+* Mount the file system
+* Select mirrors / generate a mirror list
+    * We can use arch linux's website to download an optimized list of mirrors
+    * and use pac rank command against it if needed (for speed optimization)
+* Install the base packages
+* Generate and save `fstab`
+* Chroot into the new system
+* Set the timezone
+* Set the locale
+* Set the hostname
+* Create the initramfs
+* Set the root password
+* Create a non-root user
+* Install sudo
+* Install a boot loader
+    * Most likely this will be grub, since it supports encryption
+
+What do we do after the installation? Do we want to continue with the bash script? Or do we want to use ansible at this point. I think
+we will want to continue with the bash script, as using ansible has the problem of needing another computer. Or does it?
+Can we run and ansible playbook against the computer that is running ansible? Yes we can run ansible on localhost. Once we have 
+an installation, we could instruct our script to download ansible and requirements, then clone a git repo containing
+ansible playbooks and run them accordingly.
+
+Either way, things we will need to do once we have a working install
+* Install graphics drivers
+* Install a DE
+* Install themes and fonts for desktop environment
+    * Set the themes and fonts 
+* Configure shell (fish)
+    * Install OhMyFish
+    * Install powerline fonts
+    * Install the git plugin? **TODO:** Figure out what the plugin is
+* Install web browser
+    * Configure browser / plugins
+* Install VLC
+* Install IDEs
+    * WebStorm
+    * Rider
+    * PyCharm
+* Configure connecting to NAS
+
+
+    
 # References:
 * https://disconnected.systems/blog/archlinux-installer/#setting-variables-and-collecting-user-input
 * https://wiki.archlinux.org/index.php/archiso
 * https://disconnected.systems/blog/archlinux-installer/#partioning-and-formatting-the-disk
+* https://wiki.archlinux.org/index.php/installation_guide
