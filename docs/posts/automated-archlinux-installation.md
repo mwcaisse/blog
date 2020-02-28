@@ -75,6 +75,7 @@ that running a script.
     
 ## Creating the Script
 
+### Outline of what we need to do / hope to accomplish
 What we need to do to install?
 
 * Partition Disks
@@ -120,6 +121,42 @@ Either way, things we will need to do once we have a working install
     * Rider
     * PyCharm
 * Configure connecting to NAS
+
+### Partitioning Disks
+* Create EFI System Partition `/efi` Using standard of 512MB
+* Create the swap partition. Using 16GB, since laptop has 8GB of RAM
+* Create the root partition `/` Using the rest of the disc
+
+We use parted since it has a easy to use command line interface
+
+```shell script
+parted "${DEVICE}" \
+  mklabel gpt \
+  mkpart efi fat32 1MiB 513MiB \
+  set 1 esp on \
+  mkpart swap linux-swap 513MiB 16897MiB \
+  mkpart root ext4 16897MiB 100%
+```
+
+### Formatting the Disks
+
+```shell script
+mkfs.fat -F32 "${DEVICE}p1"
+mkswap "${DEVICE}p2"
+mkfs.ext4 "${DEVICE}p3"
+```
+
+### Mount the partitions
+```shell script
+# Mount the file systems
+mount "${DEVICE}/p3" /mnt
+mkdir /mnt/efi
+mount "${DEVICE}p1" /mnt/efi
+swapon "${DEVICE}p2
+```
+
+### Selecting the Mirrors
+We can use ArchLinux's mirror generator to generate a list of mirrors that meet our desired criteria. (https://www.archlinux.org/mirrorlist/)
 
 
     
