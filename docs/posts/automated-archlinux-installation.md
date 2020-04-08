@@ -155,13 +155,40 @@ mount "${DEVICE}p1" /mnt/efi
 swapon "${DEVICE}p2
 ```
 
+
+### Setup Networking
+To fetch the name of the ethernet device, we can list all the devices with `ip link` then use `grep` to find
+the ethernet device, then we can use `awk` to get the 2nd parameter of the output, which contains the network device name
+and to remove the ":" from the command output. This assumes that there will only be one matching device.
+
+TODO: Add support for wireless
+
+`ETHERNET_DEVICE=$(ip link | grep enp | awk '{gsub(":","", $2);  print $2}')`
 ### Selecting the Mirrors
 We can use ArchLinux's mirror generator to generate a list of mirrors that meet our desired criteria. (https://www.archlinux.org/mirrorlist/)
 
+###Copy over dotfiles
+I setup my dotfiles using the [Atlassian Guide](https://www.atlassian.com/git/tutorials/dotfiles). After the installation
+I wanted to clone my dotfiles repo onto the fresh install. In order to automate this, I added a read-only deploy key to
+my dotfiles repo. Then added that deploy key to my custom arch installation image. Then I restored the dot files as follows:
 
+```bash
+arch-chroot /mnt su mitchell -c "mkdir ~/.ssh"
+cp ./<<private-key-file>> /mnt/home/mitchell/.ssh/id_rsa
+
+#Fix the permissions on the ssh key
+arch-chroot /mnt chown mitchell:mitchell -R /home/mitchell/.ssh
+arch-chroot /mnt chmod 600 /home/mitchell/.ssh/id_rsa
+
+# Setup the dotfiles repo
+arch-chroot /mnt su mitchell -c "git clone --bare <<dotfiles-repo-url>> ~/.cfg"
+arch-chroot /mnt su mitchell -c "git --git-dir=~/.cfg/ --work-tree=~ checkout --force"
+arch-chroot /mnt su mitchell -c "git --git-dir=~/.cfg/ --work-tree=~ config --local status.showUntrackedFiles no"
+```
     
 # References:
 * https://disconnected.systems/blog/archlinux-installer/#setting-variables-and-collecting-user-input
 * https://wiki.archlinux.org/index.php/archiso
 * https://disconnected.systems/blog/archlinux-installer/#partioning-and-formatting-the-disk
 * https://wiki.archlinux.org/index.php/installation_guide
+* https://www.atlassian.com/git/tutorials/dotfiles
