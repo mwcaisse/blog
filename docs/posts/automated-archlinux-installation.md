@@ -167,7 +167,7 @@ TODO: Add support for wireless
 ### Selecting the Mirrors
 We can use ArchLinux's mirror generator to generate a list of mirrors that meet our desired criteria. (https://www.archlinux.org/mirrorlist/)
 
-###Copy over dotfiles
+### Copy over dotfiles
 I setup my dotfiles using the [Atlassian Guide](https://www.atlassian.com/git/tutorials/dotfiles). After the installation
 I wanted to clone my dotfiles repo onto the fresh install. In order to automate this, I added a read-only deploy key to
 my dotfiles repo. Then added that deploy key to my custom arch installation image. Then I restored the dot files as follows:
