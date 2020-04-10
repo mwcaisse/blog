@@ -25,14 +25,14 @@ where I could re-install ArchLinux weekly and wouldn't really notice a differenc
 
 ## Methodology
 
-ArchLinux has `Archiso` a tool for building ArchLinux Live CD ISO images. We can use this create a custom installation image
+ArchLinux has `Archiso` a tool for building ArchLinux Live CD ISO images. We can use this to create a custom installation image
 that will automatically install archlinux depending on a profile that we have selected for a particular machine. 
 
 * We could use `Archiso` to do as described above, install everything needed to get us to a bootable installation
 * We could use `Archiso` to create an image that has requirements for `Ansible` pre-installed.
 
 Either approach requires creating a custom image, as the default arch installation media does not come with OpenSSH
-    daemon started. I would prefer not to have to boot up the image, start OpenSSH, and the trigger the installation via
+    daemon started. I would prefer not to have to boot up the image, start OpenSSH, and then trigger the installation via
     Ansible on another machine. I like the simplicity that booting from the disk and the installation automatically starting 
     grants us. (Of course want to add some sort of confirmation before the installation starts, to prevent accidentally booting 
     from the disk and erasing everything.) Building off of this, we could potentially utilize NetBoot to store these images on
@@ -40,7 +40,7 @@ Either approach requires creating a custom image, as the default arch installati
     
 ## Configuration Methodology
 
-Now that we have a bootable installation we need to decide how to install all of the software and configure said software. 
+Now that we have a bootable installation we need to decide how to install all the software and configure said software. 
 Again we have two choices for doing this
 * Ansible
 * Simple bash script
