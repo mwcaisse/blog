@@ -4,7 +4,7 @@ date: 2020-04-10
 tags: 
     - archlinux
     - aur
-author: mwcaisse
+author: Mitchell Caisse
 ---
 
 As I was working on creating my automated installation script for Arch Linux, I realized that I would also like to
