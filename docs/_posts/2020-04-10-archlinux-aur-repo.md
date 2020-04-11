@@ -1,4 +1,11 @@
-# AUR Repo for ArchLinux
+---
+title: AUR Repo for Arch Linux
+date: 2020-04-10
+tags: 
+    - archlinux
+    - aur
+author: mwcaisse
+---
 
 As I was working on creating my automated installation script for Arch Linux, I realized that I would also like to
 install packages from the AUR. Building the packages in the installation would be time-consuming, and a bit cumbersome
