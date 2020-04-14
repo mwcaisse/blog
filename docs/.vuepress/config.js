@@ -18,7 +18,17 @@ module.exports = {
                     link: ""
                 }
             ]
-        }
+        },
+        nav: [
+            {
+                text: "Posts",
+                link: "/"
+            },
+            {
+                text: "Tags",
+                link: "/tag/"
+            }
+        ]
     },
     plugins: [
         [
