@@ -6,3 +6,7 @@
 
 # Ignore node modules
 node_modules/
+
+# Cypress images and videos
+cypress/screenshots
+cypress/videos
