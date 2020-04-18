@@ -284,9 +284,4 @@ installation that was completed automated!
 * Creating a custom installation media
 * Full Disk Encryption
 * PGP / Yubikey setup
-* Automatically clone git repositories?   
-   
-    
-# References:
-* [https://disconnected.systems/blog/archlinux-installer/](https://disconnected.systems/blog/archlinux-installer/)
-* [https://wiki.archlinux.org/index.php/installation_guide](https://wiki.archlinux.org/index.php/installation_guide)
+* Automatically clone git repositories
