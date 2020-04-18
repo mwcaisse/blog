@@ -23,10 +23,10 @@ I could re-install weekly and wouldn't notice a difference or a huge time sink. 
 * Future installations on to new devices become much easier.
 
 ## Methodology
-There are a few ways in which one could automate a linux installation: a bash script or a configuraiton management tool like
+There are a few ways in which one could automate a linux installation: a bash script or a configuration management tool like
 ansible. I ultimately decided that I would use a bash script. This was the easiest approach:
 
-* Default Arch Linux iso already had bash and wouldn't need anything extra to run the bash script
+* Default Arch Linux iso already has bash and wouldn't need anything extra to run the bash script
 * I could use the same commands I normally do to install
 
 I approached this in phases to not make it overwhelming.
@@ -95,7 +95,7 @@ swapon "${DEVICE}p2
 We can use [ArchLinux's mirror generator](https://www.archlinux.org/mirrorlist/) to generate a list of mirrors that meet our desired criteria.
 
 This will download a list of all the mirrors in the US, uncomment out each of the mirrors, and save it as the mirror list
-that pacman will use when installating packages.
+that pacman will use when installing packages.
 
 ```bash
 curl -s "https://www.archlinux.org/mirrorlist/?country=US&protocol=http&protocol=https&ip_version=4&use_mirror_status=on" \
@@ -103,7 +103,7 @@ curl -s "https://www.archlinux.org/mirrorlist/?country=US&protocol=http&protocol
 ```
    
 ### Install the base packages
-Similar to how you install packages when installating arch linux manually, we'll use `pacstrap`.
+Similar to how you install packages when installing arch linux manually, we'll use `pacstrap`.
 
 ```bash
 pacstrap /mnt base linux linux-firmware base-devel git sudo grub efibootmgr dhcpcd nano openssh
@@ -114,7 +114,7 @@ Once we have the base packages installed, we can do the basic configuration
 * Create the fstab
 * Set the timezone
 * Sync the clock
-* Set the locacle
+* Set the locale
 * Set the hostname
 * Create the initramfs
 
@@ -150,7 +150,7 @@ arch-chroot /mnt grub-mkconfig -o /boot/grub/grub.cfg
 ```
 
 ### Create a non-root user
-We will create the non-root user that you will use the system as and set its password along with the root users password.
+We will create the non-root user that you will use the system as and set its password along with the root user's password.
 To do this we will use `useradd` to add the user and `chpasswd` to change the password as it allows reading the
 password from a pipe. 
 
@@ -170,7 +170,7 @@ set -x
 printed to the screen while it is being set. The `set +x` at the end re-enables it for the rest of the script.
 
 To allow our non-root user to execute sudo commands we can update sudo to allow the `wheel` group to execute commands. We can
-do this by setting the editor to `tee` and calling `visudo` in the target system. `tee` allows us append to the file
+do this by setting the editor to `tee` and calling `visudo` in the target system. `tee` allows us to append to the file
 by piping the line in.
 
 ```bash
@@ -275,7 +275,7 @@ reboot
 ```
 
 Now we have a bootable system. We can now remove the installation media, reboot, and see our installation start up and then
-log in with the user we setup earlier. There isn't much installed in the way of packages, but you have a functional 
+log in with the user we set up earlier. There isn't much installed in the way of packages, but you have a functional 
 installation that was completed automated!
 
 ## Future Steps
