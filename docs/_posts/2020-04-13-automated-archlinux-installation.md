@@ -278,9 +278,6 @@ Now we have a bootable system. We can now remove the installation media, reboot,
 log in with the user we setup earlier. There isn't much installed in the way of packages, but you have a functional 
 installation that was completed automated!
 
-## TODO:
-How to get script onto device to install?
-
 ## Future Steps
 * Installing Desktop Environment
 * Installing AUR packages
@@ -291,6 +288,5 @@ How to get script onto device to install?
    
     
 # References:
-* https://disconnected.systems/blog/archlinux-installer/#setting-variables-and-collecting-user-input
-* https://disconnected.systems/blog/archlinux-installer/#partioning-and-formatting-the-disk
-* https://wiki.archlinux.org/index.php/installation_guide
+* [https://disconnected.systems/blog/archlinux-installer/](https://disconnected.systems/blog/archlinux-installer/)
+* [https://wiki.archlinux.org/index.php/installation_guide](https://wiki.archlinux.org/index.php/installation_guide)
