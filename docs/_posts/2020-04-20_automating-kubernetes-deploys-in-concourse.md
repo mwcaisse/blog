@@ -138,3 +138,7 @@ in the image directory, `image/image.tar`, we will use that path in our push tas
 Now the image is built and pushed up to a docker registry, it is all set to be deployed to kubernetes.
 
 ## Deploy image to Kubernetes
+
+
+## References:
+* Database: https://kubernetes.io/docs/tasks/run-application/run-single-instance-stateful-application/
