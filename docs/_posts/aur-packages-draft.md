@@ -9,17 +9,13 @@ tags:
 author: Mitchell Caisse
 ---
 In [AUR Repo for Arch Linux](#link pls?) I set up a custom repository to maintain AUR packages. This was good, but
-it required me to manually update the packages and have root permissions in order to install any build dependencies
-of the packagaes.
+it requires me to manually update the packages and the packages are built on the host operating system rather than
+an isolated environment.
 
-In this post we will walk through addressing these two issues. We'll create a way to automate the updating of the packages
-in the repository to ensure they stay up to date. We'll also build the packages in a way that does not require
-root access. How we address the second issue will determine our methodology for automating the process, therefore we will
-start there.
+To start I created a Docker image that I could use to build the packages. Then I created two scripts, one to 
+build the packages and one to make it easy to run the docker image and add packages to the repository.
 
 ## Docker Image
-
-
 
 I wanted to use a clean environment that was always up to date to build my AUR packages. This provides a few benefits:
 1. Less changes of package conflicts, as they are always built against the most up to date libraries.
