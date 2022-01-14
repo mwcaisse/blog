@@ -4,7 +4,7 @@ name: production
 
 services:
   - name: blog
-    image: node:alpine
+    image: node:lts
     commands:
       - yarn install
       - yarn start
@@ -13,6 +13,7 @@ steps:
   - name: blog-healthcheck
     image: debian:bullseye-slim
     commands:
+      - apt install curl # install curl
       - /bin/bash ci-scripts/wait-for-blog-to-start.sh
 
   - name: cypress-firefox
