@@ -2,13 +2,6 @@ kind: pipeline
 type: docker
 name: production
 
-services:
-  - name: blog
-    image: node:lts
-    commands:
-      - yarn install
-      - yarn start
-
 steps:
   - name: blog-healthcheck
     image: debian:bullseye-slim
@@ -71,6 +64,14 @@ steps:
     when:
       branch:
         - master
+
+services:
+  - name: blog
+    image: node:lts
+    commands:
+      - yarn install
+      - yarn start
+
 
 volumes:
   - name: docker-socket
