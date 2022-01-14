@@ -11,7 +11,7 @@ services:
 
 steps:
   - name: blog-healthcheck
-    image: alpine
+    image: bash
     commands:
       - /bin/bash ci-scripts/wait-for-blog-to-start.sh
 
@@ -48,9 +48,9 @@ steps:
       tags:
         - '${DRONE_COMMIT}'
         - latest
-      depends_on:
-        - cypress-firefox
-        - cypress-chrome
+    depends_on:
+      - cypress-firefox
+      - cypress-chrome
 
   - name: deploy-to-prod
     image: registry.gitlab.com/mwcaisse/drone-images/drone-k8s-deploy
