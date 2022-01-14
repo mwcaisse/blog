@@ -1,7 +1,6 @@
 
 module.exports = {
     title: "Code Untamed",
-    subTitle: "Hello World",
     theme: "@vuepress/theme-blog",
     themeConfig: {
         dateFormat: "YYYY-MM-DD",
@@ -14,8 +13,7 @@ module.exports = {
             ],
             copyright: [
                 {
-                    text: "Copyright Mitchell Caisse © 2020",
-                    link: ""
+                    text: "© 2022 Mitchell Caisse"
                 }
             ]
         },
