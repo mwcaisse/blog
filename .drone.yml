@@ -11,9 +11,9 @@ services:
 
 steps:
   - name: blog-healthcheck
-    image: bash
+    image: debian:bullseye-slim
     commands:
-      - bash ci-scripts/wait-for-blog-to-start.sh
+      - /bin/bash ci-scripts/wait-for-blog-to-start.sh
 
   - name: cypress-firefox
     image: cypress/browsers:node16.13.0-chrome95-ff94
