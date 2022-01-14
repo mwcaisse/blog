@@ -24,7 +24,7 @@ steps:
     depends_on:
       - blog-healthcheck
 
-  - name: cypress-firefox
+  - name: cypress-chrome
     image: cypress/browsers:node16.13.0-chrome95-ff94
     commands:
       - yarn install
@@ -48,6 +48,9 @@ steps:
       tags:
         - '${DRONE_COMMIT}'
         - latest
+      depends_on:
+        - cypress-firefox
+        - cypress-chrome
 
   - name: deploy-to-prod
     image: registry.gitlab.com/mwcaisse/drone-images/drone-k8s-deploy
@@ -61,6 +64,8 @@ steps:
       ca:
         from_secret: k8s-ca
       tv_image_tag: '${DRONE_COMMIT}'
+    depends_on:
+      - build-publish
     when:
       branch:
         - master
