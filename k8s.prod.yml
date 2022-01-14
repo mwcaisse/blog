@@ -27,7 +27,7 @@ spec:
     spec:
       containers:
         - name: blog
-          image: registry.gitlab.com/mwcaisse/application-images/blog:$IMAGE_TAG
+          image: registry.gitlab.com/mwcaisse/application-images/blog:[[image_tag]]
           ports:
             - containerPort: 80
       imagePullSecrets:

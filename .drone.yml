@@ -1,0 +1,118 @@
+kind: pipeline
+type: docker
+name: production
+
+services:
+  - name: blog
+    image: node:alpine
+    commands:
+      - yarn install
+      - yarn start
+
+steps:
+  - name: blog-healthcheck
+    image: alpine
+    commands:
+      - /bin/bash ci-scripts/wait-for-blog-to-start.sh
+
+  - name: cypress-firefox
+    image: cypress/browsers:node16.13.0-chrome95-ff94
+    commands:
+      - yarn install
+      - export CYPRESS_BASE_URL=http://blog:8080/
+      - yarn run cypress run firefox --headless --record false
+    depends_on:
+      - blog-healthcheck
+
+  - name: cypress-firefox
+    image: cypress/browsers:node16.13.0-chrome95-ff94
+    commands:
+      - yarn install
+      - export CYPRESS_BASE_URL=http://blog:8080/
+      - yarn run cypress run chrome --headless --record false
+    depends_on:
+      - blog-healthcheck
+
+  - name: build-publish
+    image: registry.gitlab.com/mwcaisse/drone-images/drone-docker:20.10.7
+    volumes:
+      - name: docker-socket
+        path: /var/run/docker.sock
+    settings:
+      username:
+        from_secret: gitlab-username
+      password:
+        from_secret: gitlab-password
+      repo: registry.gitlab.com/mwcaisse/application-images/blog
+      registry: registry.gitlab.com
+      tags:
+        - '${DRONE_COMMIT}'
+        - latest
+
+  - name: deploy-to-prod
+    image: registry.gitlab.com/mwcaisse/drone-images/drone-k8s-deploy
+    settings:
+      template: k8s.prod.yml
+      namespace: production
+      server:
+        from_secret: k8s-server
+      token:
+        from_secret: k8s-token-prod
+      ca:
+        from_secret: k8s-ca
+      tv_image_tag: '${DRONE_COMMIT}'
+    when:
+      branch:
+        - master
+
+volumes:
+  - name: docker-socket
+    host:
+      path: /var/run/docker.sock
+
+image_pull_secrets:
+  - docker-auth-config
+
+---
+kind: secret
+name: gitlab-username
+get:
+  path: drone/gitlab
+  name: username
+
+---
+kind: secret
+name: gitlab-password
+get:
+  path: drone/gitlab
+  name: access-token
+
+---
+kind: secret
+name: docker-auth-config
+get:
+  path: drone/docker
+  name: auth
+
+---
+kind: secret
+name: k8s-server
+get:
+  path: drone/mwcaisse-k8s
+  name: server
+
+---
+kind: secret
+name: k8s-token-prod
+get:
+  path: drone/mwcaisse-k8s
+  name: production-access-token
+
+---
+kind: secret
+name: k8s-ca
+get:
+  path: drone/mwcaisse-k8s
+  name: cluster-certificate
+
+
