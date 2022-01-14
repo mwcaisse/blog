@@ -10,23 +10,28 @@ steps:
       - apt-get install -y curl # install curl
       - /bin/bash ci-scripts/wait-for-blog-to-start.sh
 
-  - name: cypress-firefox
+  - name: install-packages-for-cypress
     image: cypress/browsers:node16.13.0-chrome95-ff94
     commands:
       - yarn install --frozen-lockfile --check-files
+    depends_on:
+      - blog-healthchec
+
+  - name: cypress-firefox
+    image: cypress/browsers:node16.13.0-chrome95-ff94
+    commands:
       - export CYPRESS_BASE_URL=http://blog:8080/
       - yarn run cypress run firefox --headless --record false
     depends_on:
-      - blog-healthcheck
+      - install-packages-for-cypress
 
   - name: cypress-chrome
     image: cypress/browsers:node16.13.0-chrome95-ff94
     commands:
-      - yarn install --frozen-lockfile --check-files
       - export CYPRESS_BASE_URL=http://blog:8080/
       - yarn run cypress run chrome --headless --record false
     depends_on:
-      - blog-healthcheck
+      - install-packages-for-cypress
 
   - name: build-publish
     image: registry.gitlab.com/mwcaisse/drone-images/drone-docker:20.10.7
