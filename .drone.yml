@@ -13,7 +13,7 @@ steps:
   - name: blog-healthcheck
     image: bash
     commands:
-      - /bin/bash ci-scripts/wait-for-blog-to-start.sh
+      - bash ci-scripts/wait-for-blog-to-start.sh
 
   - name: cypress-firefox
     image: cypress/browsers:node16.13.0-chrome95-ff94
