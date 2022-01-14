@@ -13,7 +13,8 @@ steps:
   - name: blog-healthcheck
     image: debian:bullseye-slim
     commands:
-      - apt install curl # install curl
+      - apt-get update
+      - apt-get install -y curl # install curl
       - /bin/bash ci-scripts/wait-for-blog-to-start.sh
 
   - name: cypress-firefox
