@@ -13,7 +13,7 @@ steps:
   - name: cypress-firefox
     image: cypress/browsers:node16.13.0-chrome95-ff94
     commands:
-      - yarn install
+      - yarn install --frozen-lockfile --check-files
       - export CYPRESS_BASE_URL=http://blog:8080/
       - yarn run cypress run firefox --headless --record false
     depends_on:
@@ -22,7 +22,7 @@ steps:
   - name: cypress-chrome
     image: cypress/browsers:node16.13.0-chrome95-ff94
     commands:
-      - yarn install
+      - yarn install --frozen-lockfile --check-files
       - export CYPRESS_BASE_URL=http://blog:8080/
       - yarn run cypress run chrome --headless --record false
     depends_on:
@@ -69,7 +69,7 @@ services:
   - name: blog
     image: node:lts
     commands:
-      - yarn install
+      - yarn install --frozen-lockfile
       - yarn start
 
 
