@@ -1,12 +1,6 @@
-# Ignore vuepress build
-**/.vuepress/dist
 
 # Ignore JetBrains configuration
 .idea
 
 # Ignore node modules
 node_modules/
-
-# Cypress images and videos
-cypress/screenshots
-cypress/videos
