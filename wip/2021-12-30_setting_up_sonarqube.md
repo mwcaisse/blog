@@ -298,5 +298,112 @@ Here we can specify the source and test directories for the project, as well as 
 For the `sonar.sources` and `sonar.tests` properties, I wasn't able to get wild carding working for the directory paths, but specifying just
 the directories worked.
 
+#### Test Coverage
+
+`coverage` output format is supported by Sonarqube, so you can use it to generate coverage reports.
+
+To get it working, you'll need to run your unit tests with coverage, then print out the coverage report.
+
+```bash
+python -m coverage run -m unittest
+python -m coverage xml -i
+```
+
+We'll need to tell sonarqube where to find the coverage reports, which by default, coverage outputs to the project directory
+into a file called `coverage.xml`
+
+`sonar-project.properties`
+```
+sonar.python.coverage.reportPaths=coverage.xml
+```
+
+#### Test Results
+
+If you're using `unittest` as your testing library, you can install `unittest-xml-reporting` to generate XML reports for your testing runs.
+
+You'll want to update your CI script to run unit tests with xmlrunner instead.
+```bash
+- python -m coverage run -m xmlrunner --output-file test_report.xml
+```
+
+`--output-file` specifies the file to output the test reports to, and outputs one file. `-o <directory>` can be used to output
+the reports to the given directory, however when I tried I received a duplication error when trying to read in the test reports. Outputting
+to a single file solved that.
+
+We need to update our `sonar-project.properties` to tell sonarqube where to find the rest reports
+
+```
+sonar.python.xunit.reportPath=test_report.xml
+```
+
+Refs:
+* https://pypi.org/project/unittest-xml-reporting/
+* https://docs.sonarqube.org/latest/analysis/coverage/
+
+### JS
+
+Similar to the python configuration
+
+#### Test Coverage
+
+Use `jest-sonar` to output test run information into format sonarqube can understand.
+
+Configure jest to output test report, in your jest config or package.json
+```json
+{
+  "jest": {
+    "reporters": ["default", ["jest-sonar", {
+      "outputName": "sonar-test-report.xml"
+    }]]
+  }
+}
+```
+
+The default config would also work, by default it outputs to `sonar-report.xml`, but I explicitly set it to `sonar-test-report.xml` just to
+isolate against any changes.
+
+
+Configure the path to the test report in `sonar-project.properties`
+```
+sonar.testExecutionReportPaths=coverage/sonar-test-report.xml
+```
+
+Note: Jest seems to put it in coverage folder in the root directory of the project by default
+
+We can add the `--coverage` flag to jest to run with test coverage. I created a new script to run jest with coverage;
+`package.json`
+```json
+{
+  "scripts": {
+    "test": "jest --runInBand",
+    "coverage": "jest --runInBand --coverage"
+  }
+}
+```
+
+Update your CI/CD script to run test coverage
+```bash
+yarn coverage
+```
+
+When using test coverage, you need to specify the sources and test files so sonarqube knows which files are tests, otherwise
+you might see an error like 
+```
+ERROR: Error during SonarScanner execution
+ERROR: Error during parsing of generic test execution report '/drone/src/coverage/sonar-test-report.xml'. Look at the SonarQube documentation to know the expected XML format.
+ERROR: Caused by: Line 2 of report refers to a file which is not configured as a test file: src/test/components/Recipe/Recipe.test.js
+```
+
+`sonar-project.properties`
+```
+sonar.sources=src/main
+sonar.tests=src/test/
+```
+
+## Future Improvements
+We can probably streamline the images that are using for running sonarqube. Having an image that already has sonarqube scanner installed
+will save us the trouble of needing to install it each time. Similarly for .NET having an image with java already installed and
+the needed tools will help.
+
 ## References
 * https://docs.sonarqube.org/latest/setup/install-server/
