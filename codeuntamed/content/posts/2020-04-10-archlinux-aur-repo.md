@@ -1,9 +1,11 @@
 ---
 title: AUR Repo for Arch Linux
 date: 2020-04-10
-tags: 
-    - archlinux
-    - aur
+categories:
+  - Development
+tags:   
+  - archlinux
+  - aur
 author: Mitchell Caisse
 ---
 

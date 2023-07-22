@@ -1,4 +1,14 @@
 baseURL: /
 languageCode: "en-us"
 title: "Code Untamed"
-theme: "PaperMod"
+theme: poison
+paginate: 10
+
+taxonomies:
+  category: categories
+  tag: tags
+
+params:
+  brand: "Code Untamed"
+
+  github_url: https://github.com/mwcaisse
