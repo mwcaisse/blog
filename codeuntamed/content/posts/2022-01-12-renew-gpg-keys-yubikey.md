@@ -19,7 +19,7 @@ I decided I would document the process for when this inevitably happens again in
     * With your Yubikey plugged in you can run `gpg2 --card-status`. This will print out information about the card, including the keys on it.
     * You can also run `gpg2 --list-secret-keys`. This will list all the gpg keys that you have the private key for. 
 
-   From the output of these commands, you will want to copy of the ID from the main key. The main key is identifeid by having
+   From the output of these commands, you will want to copy of the ID from the main key. The main key is identified by having
    `sec` in the first column. The ID will be the sequence of hexadecimal numbers next to it.
    
    ```
