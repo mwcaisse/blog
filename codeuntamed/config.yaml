@@ -2,7 +2,8 @@ baseURL: /
 languageCode: "en-us"
 title: "Code Untamed"
 theme: poison
-paginate: 10
+pagination:
+  pagerSize: 10
 
 taxonomies:
   category: categories

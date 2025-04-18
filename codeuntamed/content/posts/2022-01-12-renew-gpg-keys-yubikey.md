@@ -22,7 +22,7 @@ I decided I would document the process for when this inevitably happens again in
    From the output of these commands, you will want to copy of the ID from the main key. The main key is identified by having
    `sec` in the first column. The ID will be the sequence of hexadecimal numbers next to it.
    
-   ```
+   ```text
    sec  rsa4096/A32231B41FCC3E18
         created: 2020-01-12  expires: 2024-01-13  usage: SC  
         card-no: 0006 06645024
@@ -52,8 +52,8 @@ out the key information, and `quit` will exit.
    any selected keys will have an asterisk (*) next to them.
 5. Finally, to save the changes and quit type `save`
 
-The expiration date of your key(s) are now updated and valid once again. You might want to share your updated, which to do so you'll need to 
-export the key. 
+The expiration date of your key(s) are now updated and valid once again. You might want to share your updated public key, 
+which to do so you'll need to export the key. 
 
 Which you can do by running:
 ```bash

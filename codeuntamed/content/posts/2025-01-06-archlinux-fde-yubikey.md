@@ -84,7 +84,7 @@ You will need to update your `refind_linux.conf` to have the appropriate configu
 script to install rEFInd it will have the values set for the linux running not the linux you are installing. We'll also need to add in
 the correct disc to ensure it knows which disc to decrypt.
 
-```
+```text
 "Boot with standard options"     "cryptdevice=UUID=<<crypt-device-uuid>>:cryptlvm root=<<volume-group-name>> rw loglevel=3 initrd=intel-ucode.img initrd=initramfs-linux.img"
 "Boot using fallback initramfs"  "cryptdevice=UUID=<<crypt-device-uuid>>:cryptlvm root=<<volume-group-name>> rw loglevel=3 initrd=intel-ucode.img initrd=initramfs-linux-fallback.img"
 "Boot to single-user mode"       "cryptdevice=UUID=<<crypt-device-uuid>>:cryptlvm root=<<volume-group-name>> rw loglevel=3 initrd=intel-ucode.img initrd=initramfs-linux.img single"
