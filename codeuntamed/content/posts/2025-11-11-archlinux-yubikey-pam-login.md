@@ -13,16 +13,16 @@ password manager managed password via keyboard, rather than copying and pasting 
 easier way. Could I log into it, without typing out that long password, but without reducing security too much. I already
 have a few YubiKeys, could I use that to authentically locally instead of the password?
 
-The answer was yes, with `pam_u2f`. This allows you to configure PAM to use YubiKey as an authentication option. To configure 
+The answer was yes, with `pam-u2f`. This allows you to configure PAM to use YubiKey as an authentication option. To configure 
 this there are a few things you need to do:
-* Install `pacm_u2f`
+* Install `pacm-u2f`
 * Create an Authorization Mapping
 * Update PAM Configuration
 
 ## Install pam_u2f
 This is provided as an arch package, so it is as easy as
 ```bash
-pacman -S pam_u2f
+pacman -S pam-u2f
 ```
 
 
