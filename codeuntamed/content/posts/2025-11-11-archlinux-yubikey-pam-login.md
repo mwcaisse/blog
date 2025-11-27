@@ -19,7 +19,7 @@ this there are a few things you need to do:
 * Create an Authorization Mapping
 * Update PAM Configuration
 
-## Install pam_u2f
+## Install pam-u2f
 This is provided as an arch package, so it is as easy as
 ```bash
 pacman -S pam-u2f
